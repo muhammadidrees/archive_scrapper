@@ -10,14 +10,18 @@ In this example, we first crawl the webpage to extract
 all the links and then download videos.
 '''
 
+season = "S05"
+
 # specify the URL of the archive here
-archive_url = "https://dl1.zoopix.ir/Series/Office/S01/"
+archive_url = "https://dl1.zoopix.ir/Series/Office/" + season + "/"
 
 base_url = "https://dl1.zoopix.ir"
 
 # incase downloaded some episodes and now re runing the program
-downloaded = ["E01", "E02", "E03"]
+# downloaded = ["E{:02d}".format(i) for i in range(1, 12)]
+downloaded = []
 
+# print(downloaded)
 def get_video_links():
     
     # create response object
@@ -51,7 +55,7 @@ def download_video_series(video_links):
         r = requests.get(link, stream = True)
         
         # download started
-        with open("theOffice/S01/" + file_name, 'wb') as f:
+        with open("theOffice/"+ season + "/" + file_name, 'wb') as f:
             total_length = int(r.headers.get('content-length'))
             # for chunk in r.iter_content(chunk_size = 1024*1024):
             #     if chunk:
